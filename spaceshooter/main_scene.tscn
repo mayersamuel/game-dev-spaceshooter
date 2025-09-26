@@ -1,12 +1,39 @@
-[gd_scene load_steps=3 format=3 uid="uid://xpcwfejeid4n"]
+[gd_scene load_steps=8 format=3 uid="uid://xpcwfejeid4n"]
 
-[ext_resource type="Texture2D" uid="uid://dbpwmpdrc7aun" path="res://icon.svg" id="1_0f027"]
+[ext_resource type="Texture2D" uid="uid://cwiugahnqmq7b" path="res://Assets/Sprites/Player.png" id="1_d5x1h"]
 [ext_resource type="Script" uid="uid://450y11n3hhq6" path="res://Scripts/Player.cs" id="2_2c62f"]
+[ext_resource type="PackedScene" uid="uid://cgrmmkcvg8ix7" path="res://Prefabs/laser.tscn" id="4_8mm7a"]
+[ext_resource type="Texture2D" uid="uid://d1i7ru3semwtl" path="res://Assets/Sprites/SpaceBG_Overlay.png" id="4_d5x1h"]
+[ext_resource type="AudioStream" uid="uid://bscguutu8ski4" path="res://Assets/Sounds/laser_shot.wav" id="4_hq1ik"]
+[ext_resource type="Texture2D" uid="uid://detlhvwvmskqa" path="res://Assets/Sprites/Asteroid.png" id="6_nfk4m"]
+[ext_resource type="PackedScene" uid="uid://rvgm20y3o1j" path="res://Behaviour/rotation.tscn" id="7_66tet"]
 
 [node name="WorldRoot" type="Node2D"]
 
 [node name="Player" type="Sprite2D" parent="."]
 position = Vector2(537, 360)
-scale = Vector2(0.75, 0.75)
-texture = ExtResource("1_0f027")
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("1_d5x1h")
 script = ExtResource("2_2c62f")
+_startX = 500.0
+_startY = 500.0
+_speed = 400.0
+_laserPrefab = ExtResource("4_8mm7a")
+
+[node name="LaserSound" type="AudioStreamPlayer2D" parent="Player"]
+stream = ExtResource("4_hq1ik")
+
+[node name="SpaceBG_Overlay" type="Sprite2D" parent="."]
+z_index = -1
+position = Vector2(576.00006, 324)
+scale = Vector2(0.59999996, 0.59999996)
+texture = ExtResource("4_d5x1h")
+
+[node name="Asteroid" type="Node2D" parent="."]
+scale = Vector2(0.25, 0.25)
+
+[node name="Sprite" type="Sprite2D" parent="Asteroid"]
+position = Vector2(1416, 672)
+texture = ExtResource("6_nfk4m")
+
+[node name="Rotation" parent="Asteroid/Sprite" instance=ExtResource("7_66tet")]
